@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import Home from '@/views/home'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -45,14 +46,28 @@ export const constantRoutes = [
 
   {
     path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
+    component: Home,
+    redirect: '/home',
+    children: [
+      {
+        path: 'home',
+        name: 'Dashboard',
+        component: () => import('@/views/home/ProductLink'),
+        meta: { title: 'Dashboard', icon: 'dashboard' }
+      },
+      {
+        path: 'combine',
+        name: 'Dashboard',
+        component: () => import('@/views/home/Original'),
+        meta: { title: 'Dashboard', icon: 'dashboard' }
+      },
+      {
+        path: 'original',
+        name: 'Dashboard',
+        component: () => import('@/views/home/Combine'),
+        meta: { title: 'Dashboard', icon: 'dashboard' }
+      }
+    ]
   },
 
   {
@@ -76,20 +91,6 @@ export const constantRoutes = [
       }
     ]
   },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
   {
     path: '/nested',
     component: Layout,
@@ -165,7 +166,7 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
